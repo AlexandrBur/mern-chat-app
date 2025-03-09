@@ -6,7 +6,8 @@ import useConversation from '../../zustand/useConversation';
 import { useAuthContext } from '../../context/AuthContext';
 
 const MessageContainer = () => {
-  const { selectedConversation, setSelectedConversation, isSidebarOpen, toggleSidebar } = useConversation();
+  const { selectedConversation, setSelectedConversation, isSidebarOpen, toggleSidebar } =
+    useConversation();
   const { authUser } = useAuthContext();
 
   useEffect(() => {
@@ -23,25 +24,21 @@ const MessageContainer = () => {
         // Если разговор не выбран, кнопка в правом верхнем углу экрана
         <button
           onClick={toggleSidebar}
-          className="md:hidden absolute top-2 right-2 bg-blue-500 text-white p-2 rounded-lg z-20"
-        >
+          className="md:hidden absolute top-2 right-2 bg-indigo-500 text-white p-2 rounded-lg z-20">
           <div className="w-6 h-6 relative flex items-center justify-center">
             {/* Бургер / Крестик */}
             <div
               className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
                 isSidebarOpen ? 'rotate-45' : '-translate-y-1.5'
-              }`}
-            ></div>
+              }`}></div>
             <div
               className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
                 isSidebarOpen ? 'opacity-0' : 'opacity-100'
-              }`}
-            ></div>
+              }`}></div>
             <div
               className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
                 isSidebarOpen ? '-rotate-45' : 'translate-y-1.5'
-              }`}
-            ></div>
+              }`}></div>
           </div>
         </button>
       ) : (
@@ -53,25 +50,21 @@ const MessageContainer = () => {
           </div>
           <button
             onClick={toggleSidebar}
-            className="md:hidden bg-blue-500 text-white p-2 rounded-lg"
-          >
+            className="md:hidden bg-indigo-500 text-white p-2 rounded-lg">
             <div className="w-6 h-6 relative flex items-center justify-center">
               {/* Бургер / Крестик */}
               <div
                 className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
                   isSidebarOpen ? 'rotate-45' : '-translate-y-1.5'
-                }`}
-              ></div>
+                }`}></div>
               <div
                 className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
                   isSidebarOpen ? 'opacity-0' : 'opacity-100'
-                }`}
-              ></div>
+                }`}></div>
               <div
                 className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
                   isSidebarOpen ? '-rotate-45' : 'translate-y-1.5'
-                }`}
-              ></div>
+                }`}></div>
             </div>
           </button>
         </div>
