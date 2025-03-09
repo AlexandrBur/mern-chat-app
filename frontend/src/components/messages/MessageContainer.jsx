@@ -6,26 +6,81 @@ import useConversation from '../../zustand/useConversation';
 import { useAuthContext } from '../../context/AuthContext';
 
 const MessageContainer = () => {
-  const { selectedConversation, setSelectedConversation } = useConversation();
+  const { selectedConversation, setSelectedConversation, isSidebarOpen, toggleSidebar } = useConversation();
+  const { authUser } = useAuthContext();
 
   useEffect(() => {
     return () => {
-      //cleanup function (unmounts)
+      // Cleanup function (unmounts)
       setSelectedConversation(null);
     };
   }, [setSelectedConversation]);
 
   return (
-    <div className="md:min-w-[450px] flex flex-col">
+    <div className="w-full h-full flex flex-col relative">
+      {/* Кнопка для отображения/скрытия боковой панели */}
+      {!selectedConversation ? (
+        // Если разговор не выбран, кнопка в правом верхнем углу экрана
+        <button
+          onClick={toggleSidebar}
+          className="md:hidden absolute top-2 right-2 bg-blue-500 text-white p-2 rounded-lg z-20"
+        >
+          <div className="w-6 h-6 relative flex items-center justify-center">
+            {/* Бургер / Крестик */}
+            <div
+              className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
+                isSidebarOpen ? 'rotate-45' : '-translate-y-1.5'
+              }`}
+            ></div>
+            <div
+              className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
+                isSidebarOpen ? 'opacity-0' : 'opacity-100'
+              }`}
+            ></div>
+            <div
+              className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
+                isSidebarOpen ? '-rotate-45' : 'translate-y-1.5'
+              }`}
+            ></div>
+          </div>
+        </button>
+      ) : (
+        // Если разговор выбран, кнопка внутри заголовка
+        <div className="bg-slate-500 px-4 py-2 mb-2 flex justify-between items-center">
+          <div>
+            <span className="label-text">To:</span>{' '}
+            <span className="text-gray-900 font-bold">{selectedConversation.fullName}</span>
+          </div>
+          <button
+            onClick={toggleSidebar}
+            className="md:hidden bg-blue-500 text-white p-2 rounded-lg"
+          >
+            <div className="w-6 h-6 relative flex items-center justify-center">
+              {/* Бургер / Крестик */}
+              <div
+                className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
+                  isSidebarOpen ? 'rotate-45' : '-translate-y-1.5'
+                }`}
+              ></div>
+              <div
+                className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
+                  isSidebarOpen ? 'opacity-0' : 'opacity-100'
+                }`}
+              ></div>
+              <div
+                className={`absolute w-6 h-0.5 bg-white transition-all duration-500 ease-in-out ${
+                  isSidebarOpen ? '-rotate-45' : 'translate-y-1.5'
+                }`}
+              ></div>
+            </div>
+          </button>
+        </div>
+      )}
+
       {!selectedConversation ? (
         <NoChatSelected />
       ) : (
         <>
-          {/* {Header} */}
-          <div className="bg-slate-500 px-4 py-2 mb-2">
-            <span className="label-text">To:</span>{' '}
-            <span className="text-gray-900 font-bold">{selectedConversation.fullName}</span>
-          </div>
           <Messages />
           <MessageInput />
         </>

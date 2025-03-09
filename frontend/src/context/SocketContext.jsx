@@ -16,6 +16,8 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (authUser) {
       const socket = io('https://new-chat-app.up.railway.app', {
+        //'https://new-chat-app.up.railway.app'
+        // 'http://localhost:5000'
         query: {
           userId: authUser._id,
         },
