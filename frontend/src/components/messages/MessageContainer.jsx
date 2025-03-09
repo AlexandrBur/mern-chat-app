@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Messages from './Messages';
 import MessageInput from './MessageInput';
 import { TiMessages } from 'react-icons/ti';
 import useConversation from '../../zustand/useConversation';
 import { useAuthContext } from '../../context/AuthContext';
+import EmojiPicker from 'emoji-picker-react';
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation, isSidebarOpen, toggleSidebar } =
     useConversation();
   const { authUser } = useAuthContext();
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Состояние для отображения панели эмодзи
+  const [message, setMessage] = useState(''); // Состояние для текста сообщения
 
   useEffect(() => {
     return () => {
@@ -16,6 +19,12 @@ const MessageContainer = () => {
       setSelectedConversation(null);
     };
   }, [setSelectedConversation]);
+
+  // Обработчик выбора эмодзи
+  const handleEmojiClick = (emojiObject) => {
+    setMessage((prevMessage) => prevMessage + emojiObject.emoji); // Добавляем эмодзи к тексту сообщения
+    setShowEmojiPicker(false); // Закрываем панель эмодзи
+  };
 
   return (
     <div className="w-full h-full flex flex-col relative">
@@ -43,10 +52,10 @@ const MessageContainer = () => {
         </button>
       ) : (
         // Если разговор выбран, кнопка внутри заголовка
-        <div className="bg-slate-500 px-4 py-2 mb-2 flex justify-between items-center">
+        <div className="bg-gray-800 px-4 py-2 mb-2 flex justify-between items-center">
           <div>
             <span className="label-text">To:</span>{' '}
-            <span className="text-gray-900 font-bold">{selectedConversation.fullName}</span>
+            <span className="text-white font-bold">{selectedConversation.fullName}</span>
           </div>
           <button
             onClick={toggleSidebar}
@@ -75,7 +84,37 @@ const MessageContainer = () => {
       ) : (
         <>
           <Messages />
-          <MessageInput />
+          {/* Панель эмодзи */}
+          {showEmojiPicker && (
+            <div className="absolute bottom-16 right-4 z-30">
+              <EmojiPicker
+                onEmojiClick={handleEmojiClick}
+                theme="dark" // Темная тема
+                skinTonesDisabled // Отключаем выбор тонов кожи
+                searchDisabled // Отключаем поиск (опционально)
+                previewConfig={{ showPreview: false }} // Отключаем превью
+                width={300} // Ширина панели
+                height={400} // Высота панели
+                emojiStyle="native" // Стиль эмодзи
+                suggestedEmojisMode={false} // Отключаем предложенные эмодзи
+                skinTonePickerLocation="PREVIEW" // Расположение выбора тона кожи
+                lazyLoadEmojis // Ленивая загрузка эмодзи
+              />
+            </div>
+          )}
+          {/* Контейнер для инпута и кнопки эмодзи */}
+          <div className="flex items-center p-2 bg-transparent">
+            {/* Кнопка для открытия панели эмодзи */}
+            <button
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              className="p-2 text-gray-400 hover:text-white bg-gray-800 rounded-lg mr-2">
+              😊
+            </button>
+            {/* Инпут для отправки сообщений */}
+            <div className="flex-1">
+              <MessageInput message={message} setMessage={setMessage} />
+            </div>
+          </div>
         </>
       )}
     </div>
