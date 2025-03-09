@@ -54,7 +54,7 @@ const MessageContainer = () => {
         // Если разговор выбран, кнопка внутри заголовка
         <div className="bg-gray-800 px-4 py-2 mb-2 flex justify-between items-center">
           <div>
-            <span className="label-text">To:</span>{' '}
+            <span className="label-text">Кому:</span>{' '}
             <span className="text-white font-bold">{selectedConversation.fullName}</span>
           </div>
           <button

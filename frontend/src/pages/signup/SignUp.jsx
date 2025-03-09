@@ -33,7 +33,7 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
-              <span className="text-base label-text">Full Name</span>
+              <span className="text-base label-text">Полное Имя</span>
             </label>
             <input
               type="text"
@@ -46,7 +46,7 @@ const SignUp = () => {
 
           <div>
             <label className="label p-2">
-              <span className="text-base label-text">Username</span>
+              <span className="text-base label-text">Логин</span>
             </label>
             <input
               type="text"
@@ -59,11 +59,11 @@ const SignUp = () => {
 
           <div>
             <label className="label p-2">
-              <span className="text-base label-text">Password</span>
+              <span className="text-base label-text">Пароль</span>
             </label>
             <input
               type="password"
-              placeholder="Enter Password"
+              placeholder="Введите Пароль"
               className="w-full input input-primary h-10"
               value={inputs.password}
               onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
@@ -72,11 +72,11 @@ const SignUp = () => {
 
           <div>
             <label className="label p-2">
-              <span className="text-base label-text">Confirm Password</span>
+              <span className="text-base label-text">Повторите пароль</span>
             </label>
             <input
               type="password"
-              placeholder="Confirm Password"
+              placeholder="Повторите пароль"
               className="w-full input input-primary h-10"
               value={inputs.confirmPassword}
               onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
@@ -88,12 +88,12 @@ const SignUp = () => {
           <Link
             to="/login"
             className="text-sm label hover:underline hover:text-indigo-500 mt-5 inline-block">
-            Already have an account?
+            У вас уже есть аккаунт?
           </Link>
 
           <div>
             <button className="btn btn-block btn-sm mt-3 text-gray-400" disabled={loading}>
-              {loading ? <span className="loading loading-spinner"></span> : 'Sign Up'}
+              {loading ? <span className="loading loading-spinner"></span> : 'Зарегистрироваться'}
             </button>
           </div>
         </form>

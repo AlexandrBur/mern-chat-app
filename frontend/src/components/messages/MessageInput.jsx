@@ -21,7 +21,7 @@ const MessageInput = ({ message, setMessage }) => {
         <input
           type="text"
           className="border text-sm rounded-lg block w-full p-2.5 bg-gray-800 border-gray-600 text-white pr-9"
-          placeholder="Send a message"
+          placeholder="Написать сообщение..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
